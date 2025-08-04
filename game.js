@@ -144,7 +144,7 @@ function initGame() {
 function startGame() {
     gameState = 'playing';
     score = 0;
-    ammo = 10;
+    ammo = 999; // Unlimited ammo
     timeLeft = 60;
     ducks = [];
     
@@ -186,9 +186,7 @@ function handleClick(event) {
     const mouseX = event.clientX - rect.left;
     const mouseY = event.clientY - rect.top;
     
-    if (ammo <= 0) return;
-    
-    ammo--;
+    // Unlimited ammo - no need to check or decrement
     
     // Trigger muzzle flash
     muzzleFlash = true;
@@ -209,11 +207,6 @@ function handleClick(event) {
     showShotEffect(mouseX, mouseY, hit);
     
     updateUI();
-    
-    // End game if out of ammo
-    if (ammo <= 0 && ducks.length === 0) {
-        setTimeout(endGame, 1000);
-    }
 }
 
 // Handle mouse move for crosshair and shooter
@@ -276,7 +269,7 @@ function showShotEffect(x, y, hit) {
 // Update UI
 function updateUI() {
     document.getElementById('score').textContent = score;
-    document.getElementById('ammo').textContent = ammo;
+    document.getElementById('ammo').textContent = '∞'; // Unlimited ammo symbol
     document.getElementById('time').textContent = timeLeft;
 }
 
